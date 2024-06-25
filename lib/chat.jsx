@@ -47,7 +47,7 @@ export default function Chat() {
   }
 
   function handleInputChange(e) {
-    setUserMessage(e.target.value.trim())
+    setUserMessage(e.target.value)
   }
 
   function handleChatSubmit(e) {
@@ -55,10 +55,10 @@ export default function Chat() {
     fetch("/admin/send-chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: userMessage, socket_id: socketId })
+      body: JSON.stringify({ message: userMessage.trim(), socket_id: socketId })
     })
 
-    setMessagelog(prev => [...prev, { message: userMessage, selfMessage: true }])
+    setMessagelog(prev => [...prev, { message: userMessage.trim(), selfMessage: true }])
     setUserMessage("")
   }
 
